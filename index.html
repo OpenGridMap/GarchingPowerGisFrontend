@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>OpenLayers Demo</title>
+    <style type="text/css">
+      html, body, #Map {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+      }
+    </style>
+    <script src="OpenLayers.js"></script>
+    <script>
+        OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+            defaultHandlerOptions: {
+                'single': true,
+                'double': false,
+                'pixelTolerance': 0,
+                'stopSingle': false,
+                'stopDouble': false
+            },
+
+            initialize: function(options) {
+                this.handlerOptions = OpenLayers.Util.extend(
+                        {}, this.defaultHandlerOptions
+                );
+                OpenLayers.Control.prototype.initialize.apply(
+                        this, arguments
+                );
+                this.handler = new OpenLayers.Handler.Click(
+                        this, {
+                            'click': this.trigger
+                        }, this.handlerOptions
+                );
+            },
+
+            trigger: function(e) {
+                var lonlat = map.getLonLatFromPixel(e.xy);
+                //alert("You clicked near " + lonlat.lat + " N, " +
+                //        + lonlat.lon + " E");
+                window.open('http://vmjacobsen34.informatik.tu-muenchen.de/import?lat=' + lonlat.lat + '&lon=' + lonlat.lon, '_blank', '');
+            }
+
+        });
+
+var map;
+
+var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from WGS 1984
+      var toProjection = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+      var extent = new OpenLayers.Bounds(10.739,47.503,13.046,49).transform(fromProjection,toProjection);
+      function init() {
+        var options = {
+          restrictedExtent : extent,
+          controls: [
+            new OpenLayers.Control.Navigation(),
+            new OpenLayers.Control.PanZoomBar(),
+            new OpenLayers.Control.Attribution(),
+			new OpenLayers.Control.Permalink({anchor: true}),
+            new OpenLayers.Control.MousePosition({prefix: 'EPSG:4326 coordinates: '})
+          ]
+        };
+        map = new OpenLayers.Map("Map", options);
+
+          var click = new OpenLayers.Control.Click();
+          map.addControl(click);
+          click.activate();
+
+
+		var newLayer = new OpenLayers.Layer.OSM("Local Tiles", "http://vmjacobsen34.informatik.tu-muenchen.de/osm/${z}/${x}/${y}.png", {opacity: 0.4}, {numZoomLevels: 19});
+        map.addLayer(newLayer);
+		var newLayer = new OpenLayers.Layer.OSM("Colored Voronoi (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/voronoicolored/${z}/${x}/${y}.png", {opacity: 0.2, isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer);
+		var newLayer2 = new OpenLayers.Layer.OSM("Voronoi (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/voronoi/${z}/${x}/${y}.png", 
+        { isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer2);
+		var newLayer3 = new OpenLayers.Layer.OSM("powerlines (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/powerlines/${z}/${x}/${y}.png", 
+        { isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer3);
+		var newLayer4 = new OpenLayers.Layer.OSM("Colored Voronoi (Substation)", "http://vmjacobsen34.informatik.tu-muenchen.de/substation_voronoicolored/${z}/${x}/${y}.png", {opacity: 0.2, isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer4);
+		var newLayer5 = new OpenLayers.Layer.OSM("Voronoi (Substation)", "http://vmjacobsen34.informatik.tu-muenchen.de/substation_voronoi/${z}/${x}/${y}.png", 
+        { isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer5);
+		var newLayer6 = new OpenLayers.Layer.OSM("powerlines (Substation)", "http://vmjacobsen34.informatik.tu-muenchen.de/substation_powerlines/${z}/${x}/${y}.png", 
+        { isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer6);
+		var newLayer7 = new OpenLayers.Layer.OSM("Colored Voronoi (\"Umspannwerk\")", "http://vmjacobsen34.informatik.tu-muenchen.de/umspannwerk_voronoicolored/${z}/${x}/${y}.png", {opacity: 0.2, isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer7);
+		var newLayer8 = new OpenLayers.Layer.OSM("Voronoi (\"Umspannwerk\")", "http://vmjacobsen34.informatik.tu-muenchen.de/umspannwerk_voronoi/${z}/${x}/${y}.png", 
+        { isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer8);
+		var newLayer9 = new OpenLayers.Layer.OSM("powerlines (\"Umspannwerk\")", "http://vmjacobsen34.informatik.tu-muenchen.de/umspannwerk_powerlines/${z}/${x}/${y}.png", 
+        { isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer9);
+		var newLayer10 = new OpenLayers.Layer.OSM("Power Overlay", "http://vmjacobsen34.informatik.tu-muenchen.de/poweronly/${z}/${x}/${y}.png", 
+        { isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer10);
+		var newLayer3 = new OpenLayers.Layer.OSM("minimum spanning tree (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/minspantree_powerlines/${z}/${x}/${y}.png", 
+        { isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer3);
+		var newLayer11 = new OpenLayers.Layer.OSM("NetworkX Testlayer (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/networkx_test/${z}/${x}/${y}.png", 
+        { isBaseLayer: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer11);
+		
+		layerMapnik = new OpenLayers.Layer.OSM();
+        map.addLayer(layerMapnik);
+		
+		var switcherControl = new OpenLayers.Control.LayerSwitcher();
+        map.addControl(switcherControl);
+        switcherControl.maximizeControl();
+		
+		
+        map.setCenter(new OpenLayers.LonLat(11.65257,48.24928).transform(fromProjection,toProjection), 14); // 0=relative zoom level
+      }
+	  
+	  
+	  function submitform() {
+            var queryString = document.forms[0].query.value;
+            OpenLayers.Request.GET({
+                url: "http://vmjacobsen34.informatik.tu-muenchen.de/nominatim/search.php",
+                scope: this,
+                failure: this.requestFailure,
+                success: this.requestSuccess,
+                params: {q: queryString, format: "json", limit: "1"},
+            });
+        }
+        function requestSuccess(response) {
+            //var format = new OpenLayers.Format.JSON();
+            var output = JSON.parse(response.responseText);
+			if (output[0]) {
+				var geoObject = output[0];
+			//alert(geoObject.lon + " / " + geoObject.lat);
+            //if (output.responseLists[0]) {
+                //var geometry = output.responseLists[0].features[0].geometry;
+                //var foundPosition = new OpenLayers.LonLat(geometry.x, geometry.y).transform(
+                        //new OpenLayers.Projection("EPSG:4326"),
+                        //map.getProjectionObject()
+                        //);
+                //map.setCenter(foundPosition, 16);
+            //} else {
+                //alert("Sorry, no address found");
+            //}
+				map.setCenter(new OpenLayers.LonLat(geoObject.lon, geoObject.lat).transform(fromProjection,toProjection));
+			} else {
+				alert("Address not found");
+			}
+        }
+        function requestFailure(response) {
+            alert("An error occurred. Please try again.");
+        }
+	  
+    </script>
+  </head>
+  <body onload="init();">
+    <div id="Map"></div>
+	<form style ="position:absolute; top:10px; left:60px; z-index:1000; background-color:darkblue; color:white; padding:5px;font-weight:bold; font-family:sans-serif; font-size:smaller;" name="input" action="javascript: submitform();" method="post">
+    <label for="query">Address</label> <input type="text" id="query" size=35 name="query"/>
+    <input type="submit" value="Search"/>
+</form>
+    <div id = "legend" style="position:absolute; bottom:0; left:0; z-index: 1000;">
+        <div>
+            <span id="toggleButton" style="background-color: white;">hide legend</span>
+        </div>
+        <img id="legendImg" src="legend.png" />
+    </div>
+
+
+    <script>
+        var leg = document.getElementById('legendImg');
+		leg.style.display = 'none';
+        var x = document.getElementById("toggleButton");
+		x.innerHTML = 'show legend';
+		
+        if (x.addEventListener) {                    // For all major browsers, except IE 8 and earlier
+            x.addEventListener("click", myFunction);
+        } else if (x.attachEvent) {                  // For IE 8 and earlier versions
+            x.attachEvent("onclick", myFunction);
+        }
+
+        function myFunction() {
+			if (leg.style.display == 'none') {
+				leg.style.display = 'block';
+				x.innerHTML = 'hide legend';
+			} else {
+				leg.style.display = 'none';
+				x.innerHTML = 'show legend';
+			}
+            //leg.setAttribute('style', 'display:none;');
+        }
+    </script>
+  </body>
+</html>
