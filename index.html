@@ -101,6 +101,9 @@ var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from W
 		var newLayer11 = new OpenLayers.Layer.OSM("NetworkX Testlayer (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/networkx_test/${z}/${x}/${y}.png", 
         { isBaseLayer: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer11);
+          var newLayer12 = new OpenLayers.Layer.OSM("Dijkstra powerlines (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/dijkstra_powerlines/${z}/${x}/${y}.png",
+                  { isBaseLayer: false}, {numZoomLevels: 19} );
+          map.addLayer(newLayer12);
 		
 		layerMapnik = new OpenLayers.Layer.OSM();
         map.addLayer(layerMapnik);
@@ -121,7 +124,7 @@ var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from W
                 scope: this,
                 failure: this.requestFailure,
                 success: this.requestSuccess,
-                params: {q: queryString, format: "json", limit: "1"},
+                params: {q: queryString, format: "json", limit: "1"}
             });
         }
         function requestSuccess(response) {
