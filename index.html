@@ -68,41 +68,30 @@ var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from W
 
 		var newLayer = new OpenLayers.Layer.OSM("Local Tiles", "http://vmjacobsen34.informatik.tu-muenchen.de/osm/${z}/${x}/${y}.png", {opacity: 0.4}, {numZoomLevels: 19});
         map.addLayer(newLayer);
-		var newLayer = new OpenLayers.Layer.OSM("Colored Voronoi (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/voronoicolored/${z}/${x}/${y}.png", {opacity: 0.2, isBaseLayer: false}, {numZoomLevels: 19} );
+		var newLayer = new OpenLayers.Layer.OSM("Colored Voronoi (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/voronoicolored/${z}/${x}/${y}.png", {opacity: 0.2, isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer);
 		var newLayer2 = new OpenLayers.Layer.OSM("Voronoi (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/voronoi/${z}/${x}/${y}.png", 
-        { isBaseLayer: false}, {numZoomLevels: 19} );
+        { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer2);
 		var newLayer3 = new OpenLayers.Layer.OSM("powerlines (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/powerlines/${z}/${x}/${y}.png", 
-        { isBaseLayer: false}, {numZoomLevels: 19} );
+        { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer3);
-		var newLayer4 = new OpenLayers.Layer.OSM("Colored Voronoi (Substation)", "http://vmjacobsen34.informatik.tu-muenchen.de/substation_voronoicolored/${z}/${x}/${y}.png", {opacity: 0.2, isBaseLayer: false}, {numZoomLevels: 19} );
-        map.addLayer(newLayer4);
-		var newLayer5 = new OpenLayers.Layer.OSM("Voronoi (Substation)", "http://vmjacobsen34.informatik.tu-muenchen.de/substation_voronoi/${z}/${x}/${y}.png", 
-        { isBaseLayer: false}, {numZoomLevels: 19} );
-        map.addLayer(newLayer5);
-		var newLayer6 = new OpenLayers.Layer.OSM("powerlines (Substation)", "http://vmjacobsen34.informatik.tu-muenchen.de/substation_powerlines/${z}/${x}/${y}.png", 
-        { isBaseLayer: false}, {numZoomLevels: 19} );
-        map.addLayer(newLayer6);
-		var newLayer7 = new OpenLayers.Layer.OSM("Colored Voronoi (\"Umspannwerk\")", "http://vmjacobsen34.informatik.tu-muenchen.de/umspannwerk_voronoicolored/${z}/${x}/${y}.png", {opacity: 0.2, isBaseLayer: false}, {numZoomLevels: 19} );
+		var newLayer7 = new OpenLayers.Layer.OSM("Colored Voronoi (\"Umspannwerk\")", "http://vmjacobsen34.informatik.tu-muenchen.de/umspannwerk_voronoicolored/${z}/${x}/${y}.png", {opacity: 0.2, isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer7);
 		var newLayer8 = new OpenLayers.Layer.OSM("Voronoi (\"Umspannwerk\")", "http://vmjacobsen34.informatik.tu-muenchen.de/umspannwerk_voronoi/${z}/${x}/${y}.png", 
-        { isBaseLayer: false}, {numZoomLevels: 19} );
+        { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer8);
 		var newLayer9 = new OpenLayers.Layer.OSM("powerlines (\"Umspannwerk\")", "http://vmjacobsen34.informatik.tu-muenchen.de/umspannwerk_powerlines/${z}/${x}/${y}.png", 
-        { isBaseLayer: false}, {numZoomLevels: 19} );
+        { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer9);
 		var newLayer10 = new OpenLayers.Layer.OSM("Power Overlay", "http://vmjacobsen34.informatik.tu-muenchen.de/poweronly/${z}/${x}/${y}.png", 
-        { isBaseLayer: false}, {numZoomLevels: 19} );
+        { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer10);
 		var newLayer3 = new OpenLayers.Layer.OSM("minimum spanning tree (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/minspantree_powerlines/${z}/${x}/${y}.png", 
-        { isBaseLayer: false}, {numZoomLevels: 19} );
+        { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer3);
-		var newLayer11 = new OpenLayers.Layer.OSM("NetworkX Testlayer (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/networkx_test/${z}/${x}/${y}.png", 
-        { isBaseLayer: false}, {numZoomLevels: 19} );
-        map.addLayer(newLayer11);
           var newLayer12 = new OpenLayers.Layer.OSM("Dijkstra powerlines (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/dijkstra_powerlines/${z}/${x}/${y}.png",
-                  { isBaseLayer: false}, {numZoomLevels: 19} );
+                  { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
           map.addLayer(newLayer12);
 		
 		layerMapnik = new OpenLayers.Layer.OSM();
