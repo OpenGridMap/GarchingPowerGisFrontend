@@ -90,9 +90,22 @@ var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from W
 		var newLayer3 = new OpenLayers.Layer.OSM("minimum spanning tree (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/minspantree_powerlines/${z}/${x}/${y}.png", 
         { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
         map.addLayer(newLayer3);
-          var newLayer12 = new OpenLayers.Layer.OSM("Dijkstra powerlines (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/dijkstra_powerlines/${z}/${x}/${y}.png",
-                  { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
-          map.addLayer(newLayer12);
+        var newLayer12 = new OpenLayers.Layer.OSM("Dijkstra powerlines (Transformer)", "http://vmjacobsen34.informatik.tu-muenchen.de/dijkstra_powerlines/${z}/${x}/${y}.png",
+        { isBaseLayer: false, visibility: false}, {numZoomLevels: 19} );
+        map.addLayer(newLayer12);
+
+          var geojson_layer = new OpenLayers.Layer.Vector("Powerlines tester", {
+              strategies: [new OpenLayers.Strategy.Fixed()],
+              protocol: new OpenLayers.Protocol.HTTP({
+                  url: "http://vmjacobsen34.informatik.tu-muenchen.de/powerlines.php",
+                  format: new OpenLayers.Format.GeoJSON()
+              }),
+              style: {strokeWidth: 2, strokeColor: 'orange'},
+              isBaseLayer: false,
+              visibility: false
+          });
+          map.addLayer(geojson_layer);
+
 		
 		layerMapnik = new OpenLayers.Layer.OSM();
         map.addLayer(layerMapnik);
