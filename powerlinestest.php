@@ -29,9 +29,14 @@ pg_close($dbconn);
 $dbconn = pg_connect('host=' . DB_HOST . ' dbname= pgrouting user=' . DB_USER . ' password=' . DB_PASS)
 or die('Verbindungsaufbau fehlgeschlagen: ' . pg_last_error());
 
-$query = "SELECT ST_AsGeoJSON( (SELECT ST_MakeLine(route.geom) FROM ( SELECT geom"
+// Getting the route from house to transformer
+$mainquery = "SELECT ST_MakeLine(route.geom) FROM ( SELECT geom"
         ." FROM pgr_fromAtoB('ways', ST_X('" . $house->way . "'),ST_Y('" . $house->way
-        . "'),ST_X('" . $transformer->way . "'),ST_Y('" . $transformer->way . "') ) ORDER BY seq) AS route)) as way;";
+        . "'),ST_X('" . $transformer->way . "'),ST_Y('" . $transformer->way . "') ) ORDER BY seq) AS route";
+// adding source and target
+$source_target = "ST_AddPoint( ST_AddPoint((" . $mainquery . "), '" . $house->way . "', 0), '" . $transformer->way . "')";
+//converting result to GeoJSON
+$query = "SELECT ST_AsGeoJSON(" . $source_target . ") as way;";
 
 $result = pg_query($dbconn, $query);
 $i = 1;
